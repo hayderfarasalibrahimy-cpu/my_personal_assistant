@@ -1,22 +1,29 @@
+# Uncomment this line to define a global platform for your project
 platform :ios, '15.5'
 
 # CocoaPods analytics sends network stats synchronously affecting build performance.
 ENV['COCOAPODS_DISABLE_STATS'] = '1'
 
-project_path = File.dirname(File.realpath(__FILE__))
+project 'Runner', {
+  'Debug' => :debug,
+  'Profile' => :release,
+  'Release' => :release,
+}
 
-# الحل الجذري لمشاكل المسارات:
-# بدلاً من محاولة تخمين مكان الملف، نقرأ محتواه وننفذه ككود روبي مباشرة
-flutter_export_ios_path = File.join(project_path, 'Flutter', 'flutter_export_ios.rb')
-if File.exist?(flutter_export_ios_path)
-  eval(File.read(flutter_export_ios_path), binding)
-else
-  # Fallback: في حال عدم وجود الملف (نادرة الحدوث) نحاول الطريقة التقليدية
-  require File.expand_path(File.join('..', 'Flutter', 'flutter_export_ios.rb'), __FILE__)
+def flutter_root
+  generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
+  unless File.exist?(generated_xcode_build_settings_path)
+    raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure flutter pub get is executed first"
+  end
+
+  File.foreach(generated_xcode_build_settings_path) do |line|
+    matches = line.match(/\AFLUTTER_ROOT=(.*)\z/)
+    return matches[1].strip if matches
+  end
+  raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
 end
 
-
-install! 'cocoapods', :deterministic_uuids => false
+require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'xcode_backend.sh'), flutter_root) rescue nil
 
 target 'Runner' do
   use_frameworks!
