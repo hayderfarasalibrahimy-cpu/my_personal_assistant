@@ -4,7 +4,17 @@ platform :ios, '15.5'
 ENV['COCOAPODS_DISABLE_STATS'] = '1'
 
 project_path = File.dirname(File.realpath(__FILE__))
-require File.expand_path(File.join('..', 'Flutter', 'flutter_export_ios.rb'), project_path)
+
+# الحل الجذري لمشاكل المسارات:
+# بدلاً من محاولة تخمين مكان الملف، نقرأ محتواه وننفذه ككود روبي مباشرة
+flutter_export_ios_path = File.join(project_path, 'Flutter', 'flutter_export_ios.rb')
+if File.exist?(flutter_export_ios_path)
+  eval(File.read(flutter_export_ios_path), binding)
+else
+  # Fallback: في حال عدم وجود الملف (نادرة الحدوث) نحاول الطريقة التقليدية
+  require File.expand_path(File.join('..', 'Flutter', 'flutter_export_ios.rb'), __FILE__)
+end
+
 
 install! 'cocoapods', :deterministic_uuids => false
 
@@ -13,7 +23,6 @@ target 'Runner' do
   use_modular_headers!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
-  
   target 'RunnerTests' do
     inherit! :search_paths
   end
