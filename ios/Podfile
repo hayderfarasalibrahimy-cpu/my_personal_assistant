@@ -17,7 +17,8 @@ def flutter_root
   raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
 end
 
-require File.expand_path(File.join('..', 'Flutter', 'flutter_export_ios.rb'), __FILE__)
+require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'xcode_backend.sh'), ENV['FLUTTER_ROOT']) rescue nil
+require_relative 'Flutter/flutter_export_ios.rb'
 
 install! 'cocoapods', :deterministic_uuids => false
 
