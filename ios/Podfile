@@ -1,6 +1,4 @@
-# Uncomment this line to define a global platform for your project
 platform :ios, '15.5'
-
 # CocoaPods analytics sends network stats synchronously affecting build performance.
 ENV['COCOAPODS_DISABLE_STATS'] = '1'
 
@@ -24,6 +22,18 @@ def flutter_root
 end
 
 require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'xcode_backend.sh'), flutter_root) rescue nil
+
+# Load Flutter pod helper
+flutter_ios_podfile_helper = File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper.rb'), flutter_root)
+
+if File.exist?(flutter_ios_podfile_helper)
+  require flutter_ios_podfile_helper
+else
+  # Fallback to older Flutter versions layout
+  require File.expand_path(File.join('..', 'Flutter', 'flutter_export_ios.rb'), __FILE__)
+end
+
+install! 'cocoapods', :deterministic_uuids => false
 
 target 'Runner' do
   use_frameworks!
