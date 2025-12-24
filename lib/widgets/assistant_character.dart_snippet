@@ -1,0 +1,54 @@
+  Timer? _randomEyeMoveTimer;
+
+  void _startRandomEyeMovement() {
+    // حركة أولية
+    _scheduleNextEyeMove();
+  }
+
+  void _scheduleNextEyeMove() async {
+    if (!mounted) return;
+    
+    // انتظار فترة عشوائية (ثبات العين)
+    final delay = Duration(milliseconds: 1500 + math.Random().nextInt(3500));
+    
+    _randomEyeMoveTimer = Timer(delay, () async {
+      if (!mounted) return;
+      
+      // تحديد هدف عشوائي جديد
+      final randX = (math.Random().nextDouble() * 0.5) - 0.25; // -0.25 to 0.25
+      final randY = (math.Random().nextDouble() * 0.3) - 0.15; // -0.15 to 0.15
+      final newTarget = Offset(randX, randY);
+
+      // تحديث الأنيميشن للانتقال للهدف الجديد
+      setState(() {
+         // نستخدم eyeMoveAnimation الحالي كبداية
+         // لكن بما أن الكنترولر يتحكم في القيمة بين 0 و 1، نحتاج لتحديث Tween
+         // الأفضل: استخدام animateTo لقيمة عشوائية، لكن Tween ثابت
+         // الحل الأبسط: إعادة تعريف الـ Tween مع كل حركة
+      });
+
+      // لإعادة تعريف الـ Tween نحتاج لـ Animation منفصلة أو تحديث الحالية
+      // سنقوم بتغيير استراتيجية _eyeMoveAnimation لتكون Driven by custom tween sequence logic
+      // أو ببساطة، نستخدم tween متغير.
+      
+      // الطريقة:
+      // 1. القيمة الحالية
+      final currentPos = _eyeMoveAnimation.value;
+      
+      // 2. تحديث الـ Animation
+      _eyeMoveAnimation = Tween<Offset>(
+        begin: currentPos,
+        end: newTarget,
+      ).animate(CurvedAnimation(
+        parent: _eyeMoveController, 
+        curve: Curves.easeInOutBack // حركة مع ارتداد خفيف
+      ));
+      
+      // 3. تشغيل الكنترولر من 0 إلى 1
+      _eyeMoveController.reset();
+      await _eyeMoveController.forward();
+      
+      // تكرار العملية
+      _scheduleNextEyeMove();
+    });
+  }
