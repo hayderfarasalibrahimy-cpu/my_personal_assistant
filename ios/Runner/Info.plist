@@ -2,10 +2,23 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>يستخدم التطبيق الميكروفون لتسجيل الرسائل الصوتية والدردشة الصوتية مع الذكاء الاصطناعي</string>
+	<key>NSCameraUsageDescription</key>
+	<string>يستخدم التطبيق الكاميرا لمسح المستندات ضوئياً والتقاط الصور</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>يستخدم التطبيق مكتبة الصور لاختيار الصور وإضافتها للملاحظات</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>يستخدم التطبيق مكتبة الصور لحفظ الصور المعالجة</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>يستخدم التطبيق التعرف على الكلام لتحويل صوتك إلى نصوص</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>يستخدم التطبيق Face ID لحماية ملاحظاتك الخاصة</string>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Flutter Application 1</string>
+	<string>Personal Assistant</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +26,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>flutter_application_1</string>
+	<string>personal_assistant</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -41,22 +54,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>يحتاج التطبيق إذن لحفظ الصور في المعرض</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>يستخدم التطبيق مكتبة الصور للسماح لك باختيار الصور للمهام والمحادثات</string>
-	<key>NSCameraUsageDescription</key>
-	<string>يستخدم التطبيق الكاميرا لمسح المستندات ضوئياً والتقاط الصور</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>يستخدم التطبيق الميكروفون لتسجيل الرسائل الصوتية والدردشة الصوتية مع الذكاء الاصطناعي</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>يستخدم التطبيق التعرف على الكلام لتحويل صوتك إلى نص في الدردشة</string>
-	<key>NSFaceIDUsageDescription</key>
-	<string>يستخدم التطبيق بصمة الوجه لتأمين الوصول إلى ملاحظاتك الخاصة</string>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
-	<key>CFBundleDisplayName</key>
-	<string>مذكرة الحياة</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
