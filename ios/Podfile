@@ -1,4 +1,3 @@
-# Uncomment this line to define a global platform for your project
 platform :ios, '15.5'
 
 # CocoaPods analytics sends network stats synchronously affecting build performance.
@@ -24,6 +23,8 @@ def flutter_root
 end
 
 require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'xcode_backend.sh'), flutter_root) rescue nil
+
+load File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper.rb'), flutter_root)
 
 target 'Runner' do
   use_frameworks!
